@@ -1,0 +1,28 @@
+.show-from-event-trigger
+{
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+$animTime: 250ms;
+
+.user-item
+{
+  transition: all $animTime;
+  -webkit-transition: all $animTime;
+  -o-transition: all $animTime;
+  -moz-transition: all $animTime;
+}
+
+.user-item-active
+{
+  height: 100%;
+
+}
+
+.user-item-inactive
+{
+  overflow: hidden;
+  height: 0px;
+}

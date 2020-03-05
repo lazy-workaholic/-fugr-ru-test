@@ -1,0 +1,24 @@
+.easel-content-center
+{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.main-small
+{
+  height: calc( 100% - 45px );
+  height: -o-calc( 100% - 45px);
+  height: -moz-calc( 100% - 45px);
+  height: -webkit-calc( 100% - 45px);
+}
+
+.text-center
+{
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
+}

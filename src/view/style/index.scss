@@ -1,1 +1,12 @@
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+@import './easel.scss';
+@import './user.scss';
+
+.container
+{
+  overflow: auto;
+}
+
+html, body, .container, #root, #app, #app>div {
+  height: 99.75%
+}
