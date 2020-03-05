@@ -77,7 +77,7 @@ export const SmallPage = ({
 
   return(
     <Easel downloadState={getDownloadState()}>
-      <Users filter={filter} filterSetter={_filterSetter} filter={filter}>
+      <Users filter={filter} filterSetter={_filterSetter}>
         {
           userList.map(((userItem, index) => 
             (

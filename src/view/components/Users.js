@@ -1,10 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
 
-const UP = 'UP';
-const DOWN = 'DOWN';
-const NONE = 'NONE';
-
 const FilterIcon = ({value}) => {
   
   if(value === 'UP')return(<IoIosArrowUp/>);
