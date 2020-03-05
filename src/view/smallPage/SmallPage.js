@@ -1,24 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { DataContext } from '../../controller/data-controller';
 import { Easel } from '../components/Easel';
-import { Users, UsersItem } from '../components/Users';
+import { Users, UsersItem, UserAddForm } from '../components/Users';
+import {filterModel} from '../../model/filter';
 
-const UP = 'UP';
-const DOWN = 'DOWN';
-const NONE = 'NONE';
-
-export const SmallPage = ({
-  filter={
-    id:NONE,
-    firstName:NONE,
-    lastName:NONE,
-    email:NONE,
-    phone:NONE,
-    currentKey:'id'
-  },
-  filterSetter=()=>{},
-  filterStates=[NONE]
-}) => {
+export const SmallPage = ({userAddFormSetState=()=>{},userAddFormState = false}) => {
 
   const {getSmallDataFromServer,getDownloadState,getAllData} = useContext(DataContext);
   
@@ -26,58 +12,13 @@ export const SmallPage = ({
     getSmallDataFromServer();
     // eslint-disable-next-line
   },[]);
-
-  const _filterSetter = (filterKey) => {
-    let stateNextIndex = filterStates.indexOf(filter[filterKey]) + 1;
-    if(stateNextIndex > (filterStates.length-1))stateNextIndex=0;
-
-    let filterBuf = Object.assign({},filter);
-    const stateName = filterStates[stateNextIndex];
-
-    filterBuf.currentKey = filterKey;
-    
-    Object.keys(filterBuf).forEach(filtKey => {
-      if(filterKey === filtKey)
-      {
-        filterBuf[filtKey] = stateName;
-      }
-      else if(filtKey !== 'currentKey')
-      {
-        filterBuf[filtKey] = NONE;
-      }
-    });
-
-    filterSetter(filterBuf);
-  }
-
-
   
-  const userList = (()=>{
-    let data = [...getAllData()];
-    const sortKey = filter.currentKey;
-    const sortKeyValue = filter[sortKey] || filter['id'];
-
-    switch(sortKeyValue)
-    {
-      case UP:
-        return data.sort((a,b)=>{
-          if(a[sortKey]>b[sortKey]) return 1;
-          return -1;
-        });
-      case DOWN:
-        return data.sort((a,b)=>{
-          if(a[sortKey]<b[sortKey]) return 1;
-          return -1;
-        });
-      default:
-        return data;
-    }
-    
-  })();
+  const userList = filterModel.getFilteredData(getAllData());
 
   return(
-    <Easel downloadState={getDownloadState()}>
-      <Users filter={filter} filterSetter={_filterSetter}>
+    <Easel downloadState={getDownloadState()} addUserFormState={()=>userAddFormSetState(true)}>
+      <UserAddForm show={userAddFormState} setShow={userAddFormSetState}/>
+      <Users filter={filterModel.filter} filterSetter={filterModel.setFilter}>
         {
           userList.map(((userItem, index) => 
             (
